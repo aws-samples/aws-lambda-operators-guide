@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Coffee Lookup - Example application
+
+Parameters:
+  DDBtable:
+    Type: String
+    Description: Name of DynamoDB table
+    Default: ddbLocations
+
+Globals:
+  Function:
+    # Enable Lambda Insights - see https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started-SAM-CLI.html
+    Layers:
+      - !Sub "arn:aws:lambda:${AWS::Region}:580247275435:layer:LambdaInsightsExtension:2"
+
+Resources:
+  GetLocations: 
+    Type: AWS::Serverless::Function
+    Properties:
+      Tracing: Active
+      Timeout: 15
+      Runtime: nodejs12.x    
+      CodeUri: locations/      
+      Handler: app.handler
+      MemorySize: 128
+      Description: Retrieve list of locations   
+      Policies:
+        - CloudWatchLambdaInsightsExecutionRolePolicy      
+        - DynamoDBReadPolicy:
+            TableName: !Ref DDBtable     
+      Environment:
+        Variables:
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+          RADIUS_METERS: 1000
+          TABLE_NAME: !Ref DDBtable
+          LOG_EVENT: true
+      Events:
+        Locations:
+          Type: Api
+          Properties:
+            Path: /locations
+            Method: POST        

@@ -1,0 +1,18 @@
+{
+  "name": "locations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "aws-sdk": "^2.814.0",
+    "aws-xray-sdk-core": "^3.2.0",
+    "dynamodb-geo": "^0.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "James Beswick, AWS Serverless",
+  "license": "MIT-0"
+}
