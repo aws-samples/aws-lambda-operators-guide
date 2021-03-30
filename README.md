@@ -22,7 +22,7 @@ Important: this application uses various AWS services and there are costs associ
 
 2. Clone the repo onto your local development machine:
 ```
-git clone *this-repo-url*
+git clone https://github.com/aws-samples/aws-lambda-operators-guide
 ```
 3. Set up the coffee-lookup backend
 ```
